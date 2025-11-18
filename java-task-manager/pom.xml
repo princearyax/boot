@@ -7,12 +7,36 @@
   <version>1.0-SNAPSHOT</version>
   <name>java-task-manager</name>
   <url>http://maven.apache.org</url>
+  <properties>
+        <!-- This is CRUCIAL. It tells Maven to use Java 11. -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
   <dependencies>
-    <dependency>
+    <!-- <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
-    </dependency>
+    </dependency>  -->
   </dependencies>
+  <build>
+        <plugins>
+            <!-- This plugin helps us create a runnable JAR later -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!-- This tells the JAR where our main method is -->
+                            <mainClass>com.arya.taskmanager.TaskManagerApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

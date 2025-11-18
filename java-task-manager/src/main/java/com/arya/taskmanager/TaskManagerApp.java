@@ -4,7 +4,7 @@ package com.arya.taskmanager;
  * Hello world!
  *
  */
-public class App 
+public class TaskManagerApp 
 {
     public static void main( String[] args )
     {
