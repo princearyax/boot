@@ -1,5 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.arya.taskmanager</groupId>
   <artifactId>java-task-manager</artifactId>
@@ -8,13 +9,13 @@
   <name>java-task-manager</name>
   <url>http://maven.apache.org</url>
   <properties>
-        <!-- This is CRUCIAL. It tells Maven to use Java 11. -->
+		<!-- This is CRUCIAL. It tells Maven to use Java 11. -->
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
   <dependencies>
-    <!-- <dependency>
+		<!-- <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
@@ -23,7 +24,7 @@
   </dependencies>
   <build>
         <plugins>
-            <!-- This plugin helps us create a runnable JAR later -->
+			<!-- This plugin helps us create a runnable JAR later -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -31,7 +32,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <!-- This tells the JAR where our main method is -->
+							<!-- This tells the JAR where our main method is -->
                             <mainClass>com.arya.taskmanager.TaskManagerApp</mainClass>
                         </manifest>
                     </archive>
