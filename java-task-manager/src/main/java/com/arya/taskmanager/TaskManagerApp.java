@@ -79,6 +79,9 @@ public class TaskManagerApp
                             handleViewByStatus();
                             break;
                         case "7":
+                            handleArchiveTask();
+                            break;
+                        case "8":
                             isRunning = false;
                             System.out.println("Exiting application. bye!");
                             break;
@@ -111,7 +114,8 @@ public class TaskManagerApp
         System.out.println("4. Update Task Status");
         System.out.println("5. Delete Task");
         System.out.println("6. View Tasks by Status");
-        System.out.println("7. Exit");
+        System.out.println("7. Archive Task");
+        System.out.println("8. Exit");
         System.out.print("Enter command: ");
     }
 
@@ -194,4 +198,24 @@ public class TaskManagerApp
             tasks.forEach(System.out::println);
         }
     }
+
+    private void handleArchiveTask() {
+    System.out.print("Enter Task ID to archive: ");
+    long id = Long.parseLong(scanner.nextLine().trim());
+
+    // 1. Use the Interface method. It returns true/false.
+    boolean isUpdated = taskService.updateTaskStatus(id, TaskStatus.ARCHIVED);
+
+    if (isUpdated) {
+        // 2. If true, fetch the task to show the user the result
+        Task archivedTask = taskService.getTaskById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        
+        System.out.println("SUCCESS: Archived Task #" + archivedTask.getId());
+        System.out.println(archivedTask);
+    } else {
+        // 3. If false, the ID didn't exist. Throw exception to be caught by the main loop.
+        throw new TaskNotFoundException(id);
+    }
+}
 }
