@@ -1,19 +1,34 @@
 package com.arya;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
 
 //here transaction, not autocommit
 //batch processing
 public class TransactionDemo {
     private static final String URL = "jdbc:postgresql://localhost:5432/learn_jdbc";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "postgres";
+    static Properties props = new Properties();
+    private static String USER;
+    private static String PASSWORD;
      //meowww
     
     public static void main(String[] args) {
+        try {
+            props.load(new FileInputStream("application.properties"));
+            USER = props.getProperty("db.username");
+            PASSWORD = props.getProperty("db.password");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         bankTransferTransaction();
     }
 
