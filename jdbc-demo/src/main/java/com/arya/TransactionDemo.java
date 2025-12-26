@@ -27,14 +27,16 @@ public class TransactionDemo {
             System.out.println("File not found");
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("Io exception....");
             e.printStackTrace();
         }
-        bankTransferTransaction();
+        // bankTransferTransaction();
+        batchInsertDemo();
     }
 
     //1.Transactions
     private static void bankTransferTransaction(){
-        System.out.println("\n---- Starting transaction demo will do bank transfer");
+        System.out.println("\n---- Starting transaction demo: will do bank transfer");
 
         String withdrawSQL = "UPDATE accounts SET balance = balance - ? WHERE owner = ?";
         String depositSQL = "UPDATE accounts SET balance = balance + ? WHERE owner = ?";
@@ -46,6 +48,7 @@ public class TransactionDemo {
 
             //DISABLE AUTOCOMMIT
             conn.setAutoCommit(false);
+
             try(
                 PreparedStatement withdrawStmt = conn.prepareStatement(withdrawSQL);
 
@@ -63,6 +66,7 @@ public class TransactionDemo {
                 int rowsB = depositStmt.executeUpdate();
 
                 //by uncommenting below, can simulate error], money deducted but not updated?
+
                 // throw new SQLException("Network crash simulate");
 
                 if(rowsA > 0 && rowsB > 0){
@@ -96,6 +100,38 @@ public class TransactionDemo {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    //now batch processing
+    private static void batchInsertDemo(){
+        System.out.println("\n------ Starting Batch insert demo,");
+
+        String sql = "INSERT INTO accounts (owner, balance) VALUES (?, ?)";
+
+        try (
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+        ) {
+            conn.setAutoCommit(false);
+
+            //add some dummy users
+            for(int i = 1; i <= 5; i++){
+                pstmt.setString(1, "User_"+ i);
+                pstmt.setDouble(2, 10000+i);
+
+                //add to batch , not execute
+                pstmt.addBatch();
+            }
+
+            //execute all once
+            int[] results = pstmt.executeBatch();
+            conn.commit();
+
+            System.out.println("Yay... batch executed");
+        } catch (SQLException e) {
+            System.out.println("sql exception ---");
+            e.printStackTrace();
         }
     }
 }
