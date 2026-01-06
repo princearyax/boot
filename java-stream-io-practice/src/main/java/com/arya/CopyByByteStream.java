@@ -12,6 +12,7 @@ public class CopyByByteStream {
         ) {
             int byteRead;
             //read() return -1 when end of file is reached
+            //one by one byte got stored, like at some place byteRead will be like 23, (ascii) 0-255, -1 means end EOF
             while((byteRead = fis.read()) != -1){
                 fos.write(byteRead);
                 // System.out.println(byteRead);

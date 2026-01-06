@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class CopyByBufferedStream {
     public static void main(String[] args) {
@@ -34,6 +35,9 @@ public class CopyByBufferedStream {
     }
     
     public static void reader() {
+
+        PrintWriter pw = new PrintWriter(System.out);
+        pw.print("meowww");
         
         // Typical chain.. File -> FileReader -> BufferedReader
         try (BufferedReader reader = new BufferedReader(new FileReader("logs.txt"));
@@ -56,3 +60,20 @@ public class CopyByBufferedStream {
     }
 
 }
+
+//there exist extra for bridging gaps
+//1. InputStreamReader
+//InputStream input = socket.getInputStream();
+// InputStreamReader isr = new InputStreamReader(input, StandardCharsets.UTF_8);
+// BufferedReader reader = new BufferedReader(isr);
+// Writer → OutputStreamWriter → OutputStream
+
+// 2. OutputStreamWriter
+// OutputStreamWriter = new ...(OutputStream, charset)
+//OutputStream output = socket.getOutputStream();
+// OutputStreamWriter osw = new OutputStreamWriter(output, StandardCharsets.UTF_8);
+// BufferedWriter writer = new BufferedWriter(osw);
+
+// InputStreamReader = bytes → text (decode)
+
+// OutputStreamWriter = text → bytes (encode)
