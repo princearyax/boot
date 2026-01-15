@@ -1,6 +1,7 @@
 package com.arya.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -48,6 +49,7 @@ public class UserServiceTest {
         //see if save() was called exactly one time with user
         verify(userRepository, times(1)).save(user);
     }
+
     @Test
     void testRegisterUser_AlreadyTaken(){
         String user = "princ";
@@ -61,5 +63,16 @@ public class UserServiceTest {
 
         //ensure save want called
         verify(userRepository, never()).save(anyString());
+    }
+
+    @Test
+    void testDatabaseCrash(){
+        //teaching mock to throw an exception
+        when(userRepository.save(anyString())).thenThrow(new Exception("DB down"));
+
+        //now check if calling by service handles or not
+        assertThrows(RuntimeException.class, () -> {
+            userService.registerUser("meow");
+        });
     }
 }
