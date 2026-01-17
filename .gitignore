@@ -1,5 +1,13 @@
+#eclipse
+.project
+.classpath
+bin/
+.settings/
+
 application.properties
 Temp.java
 Temp.class
 .env
 target
+/.metadata/
+

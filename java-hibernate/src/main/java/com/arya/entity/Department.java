@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -16,10 +17,10 @@ import jakarta.persistence.Table;
 @Table(name = "departments") //optional if uses same name, here camel case works...
 public class Department {
     @Id   //marks the primary key
-    @GeneratedValue //defines how pk is generated
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //defines how pk is generated
     // (identity: common, seq for oracle, uuid(new))
     @Column(name = "dept_id")
-    private long id;
+    private Long id;
 
     @Column(name = "dept_name")
     private String name;
@@ -27,8 +28,33 @@ public class Department {
     //relation : one department has many employees so
     // one to many, now fk will be contained by owner and have
     // joincolumn other has mapped by,
-    // @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department")
     private List<Employee> employees;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+    
 }
 
 

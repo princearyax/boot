@@ -15,10 +15,22 @@
 
     <dependencies>
         <!-- hibernate core -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.4.4.Final</version>
+        </dependency> -->
+        <!-- jpa api -->
+        <!-- <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency> -->
+        <!-- optional: logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.13</version>
         </dependency>
         <!-- postgresql jdbc driver -->
         <dependency>
@@ -26,18 +38,12 @@
             <artifactId>postgresql</artifactId>
             <version>42.7.3</version>
         </dependency>
-        <!-- jpa api -->
         <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.1.0</version>
+        	<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-data-jpa</artifactId>
+    		<version>3.2.5</version>
         </dependency>
-        <!-- optional: logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.13</version>
-        </dependency>
+        
     </dependencies>
 
 </project>
