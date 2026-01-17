@@ -5,9 +5,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/learning_jdbc</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/learn</property>
         <property name="connection.username">postgres</property>
-        <property name="connection.password">your_password</property>
+        <property name="connection.password"></property>
         <!-- use env vars -->
 
         <property name="connection.pool_size">5</property>
@@ -16,7 +16,7 @@
             <property name="format_sql">true</property> 
             <property name="highlight_sql">true</property> 
             
-            <property name="hbm2ddl.auto">update</property>
+            <property name="hbm2ddl.auto">none</property>
             <!-- validate in real-life -->
 
         <mapping class="com.arya.entity.Department"/>

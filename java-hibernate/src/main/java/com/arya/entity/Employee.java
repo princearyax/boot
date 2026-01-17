@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,27 +27,23 @@ public class Employee {
 	private LocalDate joinDate;
 	
 	//relation : many employees belong to one department
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY) //dont fetch until asked
 	private Department department;
 	
 
+	public Employee() {}
+	public Employee(String name) {this.name = name;}
+	
 	//gettrs and setters
 	public Long getId() {
 		return id;
 	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public Double getSalary() {
 		return salary;
 	}
@@ -59,7 +56,7 @@ public class Employee {
 		return joinDate;
 	}
 
-	public void setJoinDate(LocalDate joinDate) {
+	public void setJoinDate(LocalDate joinDate) { //well need db logic
 		this.joinDate = joinDate;
 	}
 
@@ -67,8 +64,14 @@ public class Employee {
 		return department;
 	}
 
+	//used by Department class
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+	
+	@Override
+	public String toString() {
+		return "Employee [ " + name +" ]";
 	}
 	
 	

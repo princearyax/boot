@@ -11,3 +11,4 @@ Temp.class
 target
 /.metadata/
 
+hibernate.cfg.xml
