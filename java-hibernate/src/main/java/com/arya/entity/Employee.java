@@ -8,6 +8,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -28,6 +29,7 @@ public class Employee {
 	
 	//relation : many employees belong to one department
 	@ManyToOne(fetch = FetchType.LAZY) //dont fetch until asked
+	@JoinColumn(name = "Dept_id")
 	private Department department;
 	
 

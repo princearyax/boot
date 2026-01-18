@@ -31,7 +31,7 @@ public class Main {
 					Department.class).getResultList();
 			
 			for(Department d: departments) {
-				System.out.println("department: "+d.getId()+": "+d.getName());
+				System.out.println("department: "+d.getId()+": "+d.getName()+": "+d.getEmployees());
 			}
 			
 			tx.commit();
