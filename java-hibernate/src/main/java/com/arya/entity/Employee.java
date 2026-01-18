@@ -28,13 +28,14 @@ public class Employee {
 	private LocalDate joinDate;
 	
 	//relation : many employees belong to one department
+	//this is the, owner table contains fk
 	@ManyToOne(fetch = FetchType.LAZY) //dont fetch until asked
 	@JoinColumn(name = "Dept_id")
 	private Department department;
 	
 
 	public Employee() {}
-	public Employee(String name) {this.name = name;}
+	public Employee(String name, Double salary) {this.name = name; this.salary = salary;}
 	
 	//gettrs and setters
 	public Long getId() {
