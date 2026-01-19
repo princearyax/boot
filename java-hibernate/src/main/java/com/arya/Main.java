@@ -15,6 +15,7 @@ public class Main {
 		
 //		createData();
 		//scenario-1
+		modifyData();
 		demo();
 //		System.out.println(System.getenv(null));
 		
@@ -37,6 +38,13 @@ public class Main {
 				System.out.println("department: "+d.getId()+": "+d.getName()+": "+d.getEmployees());
 			}
 			
+			List<Employee> employees = session.createNativeQuery("SELECT * FROM employees",
+					Employee.class).getResultList();
+			
+			for(Employee e: employees) {
+				System.out.println("Employee: "+e.getName()+" ,salary: "+e.getSalary()+" , "
+						+e.getJoinDate()+e.getDepartment());
+			}
 			tx.commit();
 		}catch(Exception e) {
 			if(tx != null) tx.rollback();
@@ -75,6 +83,43 @@ public class Main {
 			if(tx != null) tx.rollback();
 			e.printStackTrace();
 		}finally{
+			session.close();
+		}
+	}
+	
+	private static void modifyData() {
+		System.out.println("modiiiiiiifying.............");
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			
+//			fetch data, hibernate : hql, working with objects not table
+			Department dept = session
+					.createQuery("FROM Department d WHERE d.name = :name", Department.class)
+					.setParameter("name", "Engineering")
+					.uniqueResult();
+			System.out.println("Fetched: " + dept.getName());
+			
+//			dirty checking (update w/o save), as hibernate watches this object and detects change
+			dept.setName("Pr Engineering");
+			
+//			orphan removal, or orphanRmoval is true, when remove an employee from the list, it'll 
+//			delete sql
+			List<Employee> employees = dept.getEmployees();
+			Employee victim = employees.get(0);
+			
+			System.out.println("Removing employee: " + victim.getName());
+			dept.removeEmployee(victim);
+			
+			tx.commit(); //hibernate fires update and delete
+			System.out.println("committed.....");
+		}catch(Exception e) {
+			if(tx != null) tx.rollback();
+			e.printStackTrace();
+		}finally {
 			session.close();
 		}
 	}
