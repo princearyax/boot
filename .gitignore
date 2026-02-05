@@ -3,6 +3,7 @@
 .classpath
 bin/
 .settings/
+.properties
 
 application.properties
 Temp.java
